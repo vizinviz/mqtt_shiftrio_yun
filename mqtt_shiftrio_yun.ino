@@ -25,25 +25,25 @@ void connect() {
 
   Serial.println("\nconnected!!!!!");
 
- client.subscribe("/velo");
-  client.subscribe("/hello");
-  client.subscribe("/temperature");
- 
+  //client.subscribe("/velo");
+  //client.subscribe("/hello");
+  //client.subscribe("/temperature");
+
   // client.unsubscribe("/hello");
 }
 
-void messageReceived(String &topic, String &payload) {
+/*void messageReceived(String &topic, String &payload) {
   Serial.println("incoming: " + topic + " - " + payload);
-}
+  }*/
 
 void setup() {
   Bridge.begin();
   Serial.begin(115200);
-Serial.println("\nhi");
+  Serial.println("\nhi");
   // Note: Local domain names (e.g. "Computer.local" on OSX) are not supported by Arduino.
   // You need to set the IP address directly.
   client.begin("broker.shiftr.io", net);
-  client.onMessage(messageReceived);
+  //client.onMessage(messageReceived);
 
   connect();
 }
@@ -58,11 +58,13 @@ void loop() {
   // publish a message roughly every second.
   if (millis() - lastMillis > 2000) {
     lastMillis = millis();
-    client.publish("/hello", "world");
-    client.publish("/velo", "moto");
-    String temp = "";
-    temp += random(20,30);
-    client.publish("/temperature", temp);
+    //client.publish("/hello", "world");
+    //client.publish("/velo", "moto");
+    String topic = "/temperature";
+    String payload = "";
+    payload += random(20, 30);
+    client.publish(topic, payload);
+    Serial.println("published: " + topic + " - " + payload);
   }
 
 
