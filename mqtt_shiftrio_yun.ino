@@ -20,7 +20,6 @@ void connect() {
   Serial.print("connecting...");
   while (!client.connect("arduino-yun-vizinviz", "ecf929fe", "f65bde19d8e46d67")) {
     Serial.print(".");
-    delay(1000);
   }
 
   Serial.println("\nconnected!!!!!");
@@ -37,6 +36,7 @@ void connect() {
   }*/
 
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
   Bridge.begin();
   Serial.begin(115200);
   Serial.println("\nhi");
@@ -54,7 +54,7 @@ void loop() {
   if (!client.connected()) {
     connect();
   }
-
+  
   // publish a message roughly every second.
   if (millis() - lastMillis > 2000) {
     lastMillis = millis();
@@ -63,8 +63,12 @@ void loop() {
     String topic = "/temperature";
     String payload = "";
     payload += random(20, 30);
+    digitalWrite(LED_BUILTIN, HIGH);
     client.publish(topic, payload);
     Serial.println("published: " + topic + " - " + payload);
+    delay(100); 
+    digitalWrite(LED_BUILTIN, LOW);
+    
   }
 
 
