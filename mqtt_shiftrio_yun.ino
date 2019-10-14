@@ -18,7 +18,7 @@ unsigned long lastMillis = 0;
 
 void connect() {
   Serial.print("connecting...");
-  while (!client.connect("arduino-yun-vizinviz", "ac4b9437", "253599623a0a0034")) {
+  while (!client.connect("arduino-yun-vizinviz", "ecf929fe", "f65bde19d8e46d67")) {
     Serial.print(".");
     delay(1000);
   }
