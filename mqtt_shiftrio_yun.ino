@@ -17,12 +17,12 @@ MQTTClient client;
 unsigned long lastMillis = 0;
 
 void connect() {
-  Serial.print("connecting...");
+  //Serial.print("connecting...");
   while (!client.connect("arduino-yun-vizinviz", "ecf929fe", "f65bde19d8e46d67")) {
-    Serial.print(".");
+    // Serial.print(".");
   }
 
-  Serial.println("\nconnected!!!!!");
+  //Serial.println("\nconnected!!!!!");
 
   //client.subscribe("/velo");
   //client.subscribe("/hello");
@@ -38,8 +38,8 @@ void connect() {
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   Bridge.begin();
-  Serial.begin(115200);
-  Serial.println("\nhi");
+  //Serial.begin(115200);
+  // Serial.println("\nhi");
   // Note: Local domain names (e.g. "Computer.local" on OSX) are not supported by Arduino.
   // You need to set the IP address directly.
   client.begin("broker.shiftr.io", net);
@@ -54,7 +54,7 @@ void loop() {
   if (!client.connected()) {
     connect();
   }
-  
+
   // publish a message roughly every second.
   if (millis() - lastMillis > 2000) {
     lastMillis = millis();
@@ -65,10 +65,10 @@ void loop() {
     payload += random(20, 30);
     digitalWrite(LED_BUILTIN, HIGH);
     client.publish(topic, payload);
-    Serial.println("published: " + topic + " - " + payload);
-    delay(100); 
+    //Serial.println("published: " + topic + " - " + payload);
+    delay(100);
     digitalWrite(LED_BUILTIN, LOW);
-    
+
   }
 
 
